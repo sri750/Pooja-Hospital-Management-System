@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CarePlus Hospital Management</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">✚</div>
+            <div>
+                <h2>CarePlus</h2>
+                <span>Hospital</span>
+            </div>
+        </div>
+
+        <nav>
+
+            <a href="#dashboard" class="nav-link active">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="#patients" class="nav-link">
+                <span>♙</span>
+                Patients
+            </a>
+
+            <a href="#doctors" class="nav-link">
+                <span>⚕</span>
+                Doctors
+            </a>
+
+            <a href="#appointments" class="nav-link">
+                <span>▣</span>
+                Appointments
+            </a>
+
+            <a href="#billing" class="nav-link">
+                <span>▤</span>
+                Billing
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="emergency-box">
+                <div class="emergency-icon">☎</div>
+
+                <div>
+                    <strong>Emergency</strong>
+                    <p>+91 108</p>
+                </div>
+            </div>
+
+            <button class="logout-btn" onclick="logout()">
+                ⇥ Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <!-- HEADER -->
+
+        <header class="header">
+
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p id="currentDate"></p>
+            </div>
+
+            <div class="header-right">
+
+                <button class="notification" onclick="showNotification()">
+                    🔔
+                    <span></span>
+                </button>
+
+                <div class="profile">
+
+                    <div class="profile-avatar">
+                        DR
+                    </div>
+
+                    <div>
+                        <strong>Dr. Admin</strong>
+                        <small>Administrator</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+
+        <section id="dashboard" class="page-section">
+
+            <div class="welcome">
+
+                <div>
+                    <p class="small-label">GOOD MORNING 👋</p>
+
+                    <h2>Welcome to CarePlus Hospital</h2>
+
+                    <p>
+                        Manage your hospital activities easily from one place.
+                    </p>
+                </div>
+
+                <div class="welcome-icon">
+                    🏥
+                </div>
+
+            </div>
+
+
+            <!-- STAT CARDS -->
+
+            <div class="stats">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        ♙
+                    </div>
+
+                    <div>
+                        <span>Total Patients</span>
+                        <h2 id="patientCount">0</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        ⚕
+                    </div>
+
+                    <div>
+                        <span>Total Doctors</span>
+                        <h2 id="doctorCount">0</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        ▣
+                    </div>
+
+                    <div>
+                        <span>Appointments</span>
+                        <h2 id="appointmentCount">0</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+                        🛏
+                    </div>
+
+                    <div>
+                        <span>Available Beds</span>
+                        <h2 id="bedCount">24</h2>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUICK ACTION -->
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Quick Actions</h2>
+                    <p>Frequently used hospital operations</p>
+                </div>
+
+            </div>
+
+
+            <div class="quick-actions">
+
+                <button onclick="openModal('patientModal')">
+                    <span>♙</span>
+                    <strong>Add Patient</strong>
+                    <small>Register new patient</small>
+                </button>
+
+                <button onclick="openModal('doctorModal')">
+                    <span>⚕</span>
+                    <strong>Add Doctor</strong>
+                    <small>Add medical staff</small>
+                </button>
+
+                <button onclick="openModal('appointmentModal')">
+                    <span>▣</span>
+                    <strong>Book Appointment</strong>
+                    <small>Schedule consultation</small>
+                </button>
+
+                <button onclick="showBilling()">
+                    <span>₹</span>
+                    <strong>Create Bill</strong>
+                    <small>Manage patient billing</small>
+                </button>
+
+            </div>
+
+
+            <!-- RECENT APPOINTMENTS -->
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Recent Appointments</h2>
+                    <p>Latest scheduled appointments</p>
+                </div>
+
+                <button class="view-btn" onclick="scrollToSection('appointments')">
+                    View All
+                </button>
+
+            </div>
+
+
+            <div class="table-card">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Patient</th>
+                            <th>Doctor</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="dashboardAppointments"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- PATIENTS -->
+
+        <section id="patients" class="page-section">
+
+            <div class="section-top">
+
+                <div>
+                    <h2>Patient Management</h2>
+                    <p>Manage registered patients</p>
+                </div>
+
+                <button class="primary-btn" onclick="openModal('patientModal')">
+                    + Add Patient
+                </button>
+
+            </div>
+
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="patientSearch"
+                    placeholder="Search patient..."
+                    onkeyup="searchPatients()"
+                >
+
+            </div>
+
+
+            <div class="table-card">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Patient ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Phone</th>
+                            <th>Disease</th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="patientTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- DOCTORS -->
+
+        <section id="doctors" class="page-section">
+
+            <div class="section-top">
+
+                <div>
+                    <h2>Doctor Management</h2>
+                    <p>Manage hospital doctors</p>
+                </div>
+
+                <button class="primary-btn" onclick="openModal('doctorModal')">
+                    + Add Doctor
+                </button>
+
+            </div>
+
+
+            <div class="doctor-grid" id="doctorGrid"></div>
+
+        </section>
+
+
+        <!-- APPOINTMENTS -->
+
+        <section id="appointments" class="page-section">
+
+            <div class="section-top">
+
+                <div>
+                    <h2>Appointments</h2>
+                    <p>Manage patient appointments</p>
+                </div>
+
+                <button
+                    class="primary-btn"
+                    onclick="openModal('appointmentModal')"
+                >
+                    + Book Appointment
+                </button>
+
+            </div>
+
+
+            <div class="table-card">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Patient</th>
+                            <th>Doctor</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="appointmentTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- BILLING -->
+
+        <section id="billing" class="page-section">
+
+            <div class="section-top">
+
+                <div>
+                    <h2>Billing Management</h2>
+                    <p>Create and manage patient bills</p>
+                </div>
+
+            </div>
+
+
+            <div class="billing-grid">
+
+                <div class="bill-form">
+
+                    <h3>Create New Bill</h3>
+
+                    <label>Patient Name</label>
+
+                    <input
+                        type="text"
+                        id="billPatient"
+                        placeholder="Patient name"
+                    >
+
+
+                    <label>Consultation Fee</label>
+
+                    <input
+                        type="number"
+                        id="consultation"
+                        placeholder="₹"
+                    >
+
+
+                    <label>Medicine Charges</label>
+
+                    <input
+                        type="number"
+                        id="medicine"
+                        placeholder="₹"
+                    >
+
+
+                    <label>Room Charges</label>
+
+                    <input
+                        type="number"
+                        id="room"
+                        placeholder="₹"
+                    >
+
+
+                    <button class="primary-btn" onclick="generateBill()">
+                        Generate Bill
+                    </button>
+
+                </div>
+
+
+                <div class="bill-result">
+
+                    <div class="bill-header">
+                        <h2>CarePlus Hospital</h2>
+                        <p>Patient Invoice</p>
+                    </div>
+
+                    <div id="billDetails">
+
+                        <p class="empty">
+                            Bill details will appear here.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer>
+            © 2026 CarePlus Hospital Management System
+        </footer>
+
+    </main>
+
+
+    <!-- PATIENT MODAL -->
+
+    <div class="modal" id="patientModal">
+
+        <div class="modal-content">
+
+            <button class="close" onclick="closeModal('patientModal')">
+                ×
+            </button>
+
+            <h2>Add New Patient</h2>
+
+            <p>Enter patient information</p>
+
+            <form id="patientForm">
+
+                <input
+                    type="text"
+                    id="patientName"
+                    placeholder="Patient Name"
+                    required
+                >
+
+                <input
+                    type="number"
+                    id="patientAge"
+                    placeholder="Age"
+                    required
+                >
+
+                <select id="patientGender" required>
+
+                    <option value="">Select Gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+
+                </select>
+
+                <input
+                    type="tel"
+                    id="patientPhone"
+                    placeholder="Phone Number"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="patientDisease"
+                    placeholder="Disease / Problem"
+                    required
+                >
+
+                <button class="primary-btn" type="submit">
+                    Add Patient
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- DOCTOR MODAL -->
+
+    <div class="modal" id="doctorModal">
+
+        <div class="modal-content">
+
+            <button class="close" onclick="closeModal('doctorModal')">
+                ×
+            </button>
+
+            <h2>Add New Doctor</h2>
+
+            <p>Enter doctor information</p>
+
+            <form id="doctorForm">
+
+                <input
+                    type="text"
+                    id="doctorName"
+                    placeholder="Doctor Name"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="doctorSpecialization"
+                    placeholder="Specialization"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="doctorDepartment"
+                    placeholder="Department"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="doctorTime"
+                    placeholder="Available Time"
+                    required
+                >
+
+                <button class="primary-btn" type="submit">
+                    Add Doctor
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- APPOINTMENT MODAL -->
+
+    <div class="modal" id="appointmentModal">
+
+        <div class="modal-content">
+
+            <button
+                class="close"
+                onclick="closeModal('appointmentModal')"
+            >
+                ×
+            </button>
+
+            <h2>Book Appointment</h2>
+
+            <p>Schedule a patient consultation</p>
+
+            <form id="appointmentForm">
+
+                <input
+                    type="text"
+                    id="appointmentPatient"
+                    placeholder="Patient Name"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="appointmentDoctor"
+                    placeholder="Doctor Name"
+                    required
+                >
+
+                <input
+                    type="date"
+                    id="appointmentDate"
+                    required
+                >
+
+                <input
+                    type="time"
+                    id="appointmentTime"
+                    required
+                >
+
+                <select id="appointmentStatus">
+
+                    <option>Confirmed</option>
+                    <option>Pending</option>
+                    <option>Completed</option>
+
+                </select>
+
+                <button class="primary-btn" type="submit">
+                    Book Appointment
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
